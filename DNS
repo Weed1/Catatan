@@ -1,0 +1,77 @@
+DNS 
+#apt install bind9 bind9-utils
+#nano /etc/bind/named.conf.local
+EDIT*
+zone "itservice.co.id" {
+	type master ;
+	file "/etc/bind/forward.itservice";
+};
+
+zone "lks.co.id" {
+	type master ;
+	file "/etc/bind/forward.lks";
+};
+
+zone "10.168.192.in-addr.arpa" { | 10.168.192 berasal dari ip 192.168.10.1
+	type master ;
+	file "/etc/bind/reverse.192";
+};
+SAVE*
+#cp db.127 reverse.192
+#cp db.local forward.itservice
+#cp db.local forward.lks
+#nano forward.lks
+EDIT*
+$TTL 6048000
+@        IN        SOA       lks.co.id. root.oscmantap.com. (
+                             2022070601         ; serial number
+                             1d                 ; refresh period
+                             3h                 ; retry period
+                             ed                 ; expire time
+                             3h )               ; minimum TTL
+;
+@        IN        NS        lks.co.id.
+@        IN        A         192.168.10.1
+www      IN        A         192.168.10.1
+ftp	 IN	   A	     192.168.10.1
+mail	 IN	   A	     192.168.10.1
+proxy	 IN	   A	     192.168.10.1
+SAVE*
+#nano forward.itservice
+EDIT*
+$TTL 6048000
+@        IN        SOA       itservice.co.id. root.itservice.co.id. (
+                             2022070601         ; serial number
+                             1d                 ; refresh period
+                             3h                 ; retry period
+                             ed                 ; expire time
+                             3h )               ; minimum TTL
+;
+@        IN        NS        itservice.co.id.
+@        IN        A         192.168.10.1
+www      IN        A         192.168.10.1
+ftp	 IN	   A	     192.168.10.1
+mail	 IN	   A	     192.168.10.1
+proxy	 IN	   A	     192.168.10.1
+SAVE*
+#nano reverse.192
+EDIT*
+$TTL 8h
+@        IN        SOA        lks.co.id. root.lks.co.id. (
+                              2022070601 ; serial number
+                              1d         ; refresh period
+                              3h         ; retry period
+                              ed         ; expire time
+                              3h )       ; minimum TTL
+;
+@        IN        NS        lks.co.id.
+1        IN        PTR       lks.co.id.
+1	 IN	   PTR	     ftp.lks.co.id.
+1	 IN	   PTR	     mail.lks.co.id.
+1	 IN	   PTR	     proxy.lks.co.id
+@  IN    NS        itservice.co.id.
+1  IN    PTR       itservice.co.id.
+1	 IN	   PTR	     ftp.itservice.co.id.
+1	 IN	   PTR	     mail.itservice.co.id.
+1	 IN	   PTR	     proxy.itservice.co.id.
+SAVE*
