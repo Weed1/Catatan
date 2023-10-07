@@ -1,4 +1,4 @@
-UPDATE REPOSITORY
+UPDATE REPOSITORY(Debian)
 #nano /etc/apt/sources.list
 EDIT*>Tambahkan
 deb http://deb.debian.org/debian/ bullseye main contrib non-free
