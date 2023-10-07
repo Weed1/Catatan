@@ -1,1 +1,11 @@
-
+STATIC IP
+#ip a | untuk melihat interface pada server
+#nano /etc/network/interfaces
+EDIT*
+auto eth1 | ganti eth 1 dengan interface yang dimiliki contoh : auto enp0s8
+iface eth1 inet static
+	address 192.168.10.1
+	netmask 255.255.255.0
+Save*
+#systemctl restart networking
+#ip a | untuk melihat apakah ip static telah berhasil
