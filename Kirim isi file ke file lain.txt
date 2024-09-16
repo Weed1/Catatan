@@ -1,0 +1,17 @@
+1.Kirim kalimat yang berada pada baris tertentu di sebuah file untuk di kirim ke file lain :
+
+sed -n '1p;2p;4p' A_file > B_file
+
+___________________________________________________________________________________
+
+2.Kirim semua isi dari file ke file lain
+
+cat source_file > target_file
+
+___________________________________________________________________________________
+
+
+3.Kirim kalimat yang memiliki kata kata yang ditentukan
+
+grep -i "error" system.log > errors.txt
+

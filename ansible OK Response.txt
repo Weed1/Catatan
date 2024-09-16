@@ -1,0 +1,46 @@
+cara 1: jika ingin mengskip sebuah task yang sudah dijalankan sebelumnya
+======================================
+- name: Configure Customer Environment
+  hosts: dc
+  tasks:
+    - name: Check if already a Domain Controller
+      win_shell: Get-WindowsFeature -Name AD-Domain-Services
+      register: domain_services_check
+      changed_when: false
+
+    - name: Configure WIN as Domain Controller
+      win_shell: |
+        Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+        Import-Module -Name ADDSDeployment
+        Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+        $SecurePassword = ConvertTo-SecureString 'P@ssword' -AsPlainText -Force
+        Install-ADDSForest -DomainName 'customers.com' -SafeModeAdministratorPassword $SecurePassword
+      register: domain_controller_result
+      changed_when: domain_controller_result is changed
+      when: domain_services_check.rc != 0
+
+cara 2: menambahkan failed_when: false | baris ini akan membuat ansible memberikan pesan ok meskipun sebenarnya mendapatkan response failed
+========================================
+- name: Configure Customer Environment
+  hosts: dc
+  tasks:
+    - name: Check if already a Domain Controller
+      win_shell: Get-WindowsFeature -Name AD-Domain-Services
+      register: domain_services_check
+      changed_when: false
+
+    - name: Configure WIN as Domain Controller
+      win_shell: |
+        Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+        Import-Module -Name ADDSDeployment
+        Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+        $SecurePassword = ConvertTo-SecureString 'P@ssword' -AsPlainText -Force
+        Install-ADDSForest -DomainName 'customers.com' -SafeModeAdministratorPassword $SecurePassword
+      failed_when: false
+
+cara 3: menambahkan changed_when: false | baris ini akan memberikan pesan ok meskipun sebenar memberikan response changed
+
+    - name: Check if already a Domain Controller
+      win_shell: Get-WindowsFeature -Name AD-Domain-Services
+      register: domain_services_check
+      changed_when: false

@@ -1,0 +1,13 @@
+Remove DHCP Leases isc dhcp manually
+#systemctl stop isc-dhcp
+#nano/var/lib/dhcp/dhcpd.leases
+hapus leases yang ingin dihapus dari "lease" sampai "}"
+ex:
+lease 172.1.100.3 {
+~~~~~
+~~~~~
+}
+
+Remove entire DHCP Leases manually
+#rm /var/lib/dhcp/dhcpd.leases
+

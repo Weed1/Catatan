@@ -1,0 +1,21 @@
+error:
+root@debian:~# apt update
+Ign:1 cdrom://[Debian GNU/Linux 12.0.0_Bookworm_ Official amd64 DLBD Binary-1 with firmware 20230
+610-10:23] bookworm InRelease
+Err:2 cdrom:// [Debian GNU/Linux 12.0.0_Bookworm Official amd64 DLBD Binary-1 with firmware 20230
+610-10:23] bookworm Release
+Please use apt-cdrom to make this CD-ROM recognized by APT. apt-get update cannot be used to add n
+ew CD-ROMS
+Reading package lists... Done
+The repository 'cdrom://[Debian GNU/Linux 12.0.0 Bookworm Official amd64 DLBD Binary-1 with f
+E: irmware 20230610-10:23] bookworm Release does not have a Release file.
+: Updating from such a repository can't be done securely, and is therefore disabled by default. N
+N: See apt-secure (8) manpage for repository creation and user configuration details.
+
+Solution:
+1.nano /etc/apt/sources.list
+deb cdrom:[Debian GNU/Linux 12.0.0 _Bookworm_ - Official amd64 DLBD Binary-1 with firmware 20230610-10:23]/ bookworm main non-free-firmware 
+ubah ke ==>
+deb [trusted=yes] cdrom:[Debian GNU/Linux 12.0.0 _Bookworm_ - Official amd64 DLBD Binary-1 with firmware 20230610-10:23]/ bookworm main non-free-firmware
+
+2.apt update

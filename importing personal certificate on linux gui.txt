@@ -1,0 +1,3 @@
+#buka browser mozilla firefox
+#pada tombol dengan 3 baris horizontal di paling kanan pilih settings
+#Find in Settings > Certificate > View Certificates... > Authorities  > Import > Certificate buat servicenya 

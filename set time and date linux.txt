@@ -1,0 +1,12 @@
+setting time and data
+#sudo timedatectl set-time "YYYY-MM-DD HH:MM:SS"
+Y=year
+-M=Month
+D=Day
+H=Hour
+:M=Minute
+S=Second
+jika mendapat notif " Failed to set time: Automatic time synchronization is enabled" jalankan perintah berikut
+sudo systemctl stop systemd-timesyncd
+
+digunakan biasa saat sertifikat masih belum valid

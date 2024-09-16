@@ -1,0 +1,23 @@
+Buat Direktori
+New-Item -Path C:\web -ItemType Directory
+
+Buat Multiple Direktori
+cara 1:
+New-Item -path C:\web1,C:\web2,C:\web3 -ItemType Directory
+
+cara 2:
+$folders =@("Folder1", "Folder2", "Folder3")
+
+ForEach ($Folder in $Folder) {
+    new-Item -ItemType Directory -Path "C:\Temp\Documents\$Folder
+}
+
+Buat folder sekalian file dengan isinya
+New-Item -Path 'C:\web\user1\default.htm' -ItemType File -Force -Value "<h1> ops01.itnsa.id </h1><br> This website is managed by ops@itnsa.id"
+
+dengan foreach
+1..10 | ForEach-Object {
+    $j = "{0:00}" -f $_
+    New-Item -Path "C:\web\user$j\default.htm" -ItemType File -Force -Value "<h1> ops$j.itnsa.id </h1><br> This website is managed by ops@itnsa.id"
+}
+

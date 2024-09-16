@@ -1,0 +1,5 @@
+New-SelfSignedCertificate -DnsName "WIN.customers.com" -CertStoreLocation "cert:\LocalMachine\My"
+
+winrm create winrm/config/Listener?Address=*+Transport=HTTPS '@{Hostname="WIN.customers.com"; CertificateThumbprint="paste"}'
+
+WinRM e winrm/config/listener

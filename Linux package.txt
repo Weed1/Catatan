@@ -1,0 +1,29 @@
+Linux package
+
+ldap server
+#apt install slapd ldapscripts ldap-utils libnss-ldapd libpam-ldapd -y
+
+ldap client
+#apt install slapd libnss-ldapd libpam-ldapd -y
+
+web server
+#apt install apache2 apache2-utils curl -y
+
+dns
+#apt install bind9 bind-utils -y
+
+mail
+#apt install postfix dovecot-pop3d dovecot-imapd mail-utils -y
+
+samba server
+#apt install samba smbclient-y
+
+samba client (Linux cli)
+#apt install smb client -y
+
+haproxy
+#apt install haproxy -y
+
+basic
+#apt instal ssh net-tools tcpdump
+

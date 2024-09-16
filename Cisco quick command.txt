@@ -1,0 +1,60 @@
+-	Hostname
+Router(config)#hostname WST-1
+WST-1(config)# | << hasilnya
+
+-	Configure domain name
+Router(config)#ip domain-name lks2023.id
+tes dengan
+Router(config)#do sh hosts
+
+-	Configure TimeZone
+Router(config)#clock timezone GMT 7
+Router(config)#do show clock
+
+-	Configure privileges PBKDF2 hashed password
+Router(config)#enable secret 4 Skills39
+(ketika di cek konfigurasinya type hash akan berubah menjadi 5(md5) bukan 4(PBKDF2) karena packet tracer tidak mendukung
+Router(config)#do sh run
+
+-	Configure ip on LAYER 3 SWITCH
+Switch(config)#int g1/0/1
+Switch(config-if)#no switchport
+Switch(config-if)#ip add 11.11.11.1 255.255.255.252
+
+-	Configure Ether-Channel LACP
+Switch0(config)#int range fa0/1 - fa0/3
+Switch0(config-if-range)#channel-group 1 mode active
+Switch0(config-if-range)#channel-protocol lacp
+Switch0(config-if-range)#exit
+Switch0(config)#int port-channel 1
+Switch0(config-if)#switchport mode trunk
+Switch0(config-if)#exit
+
+ip domain-name lks2023.id
+clock timezone GMT 7
+
+-	Configure GRE VPN Tunnel
+R0(config)# interface Tunnel 1
+R0(config-if)# ip address 50.50.50.1 255.255.255.0 (ip buat tunnel)
+R0(config-if)# tunnel source FastEthernet 0/0
+R0(config-if)# tunnel destination 20.0.0.1 (ip public ke arah internet)
+R0(config-if)# end
+R0# copy running-config startup-config
+
+R0(config)# ip route 192.168.2.0 255.255.255.0 50.50.50.2 (client R2 dengan next-hop ip tunnel R2)
+R0(config)# end
+R0# copy running-config startup-config
+ 
+R2(config)# interface Tunnel 1
+R2(config-if)# ip address 50.50.50.2 255.255.255.0 (ip buat tunnel)
+R2(config-if)# tunnel source FastEthernet 0/0
+R2(config-if)# tunnel destination 10.0.0.1 (ip public ke arah internet)
+R2(config-if)# end
+R2# copy running-config startup-config
+
+R2(config)# ip route 192.168.1.0 255.255.255.0 50.50.50.1 (client R0 dengan next-hop ip tunnel R0)
+R2(config)# end
+R2# copy running-config startup-config
+R2#show interfaces tunnel 1 (cek apakah paket menggunakan protokol gre atau tidak)no
+
+do sh crypto ipsec sa

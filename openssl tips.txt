@@ -1,0 +1,17 @@
+1. failed to parse private key
+Decrypt private key dengan perintah
+#openssl rsa -in ca.key -out ca.key
+
+2. buat private key sekalian dengan csr
+openssl req -new -newkey rsa:2048 -out ca.csr -keyout ca.key
+
+3. menandatangani ssl certificate dengan ca tanpa file konfig openssl.cnf
+openssl x509 -req -in inter.csr -CA ca.crt -CAkey ca.key -out inter.crt
+
+4. openssl cek ca dan key saling berhubungan
+openssl x509 -noout -modulus -in cert.pem | openssl sha256
+openssl rsa -noout -modulus -in key.pem | openssl sha256
+
+5. merging file ca dengan inter
+cat ca.crt inter.crt > chain.pem
+

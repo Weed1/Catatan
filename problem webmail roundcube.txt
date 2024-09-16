@@ -1,0 +1,20 @@
+1.HTTP Status 200 OK | bukan frontend roundcube yang biasa
+-php tidak terinstall
+-Masalah pada os yang digunakan
+-Perangkat yang digunakan untuk vm rusak
+
+2.Displaying default apache web
+-pada /etc/hosts pastikan sudah benar dan tidak ada settingan ynag mengganggu
+contoh: ketika clone vm lain maka akan ada settingan yang sama dengan clonenya pada kasus ini di /etc/hosts/ terdapat konfigurasi yang tidak berguna terhadap konfigurasi yang digunakan sekarang seperti "127.0.0.1 competitor" padahal di topologi yang sekarang menggunakan nama buton sehingga ketika membuka apache,aplikasi apache tidak mendeteksi host yang sesuai dan akhirnya memunculkan default web apache setelah apache terinstall.
+
+3.TLS outdate / unsafe tls setting
+-Sertifikat yang dipakai belum berlaku
+solve dengan mensetting waktu menjadi setelah notBefore
+dapat dilihat dengan perintah "openssl x509 -noout -text -in server.crt | more dibagian notBefore: 
+-Gunakan keyUsage dan extendedKeyUsage yang benar
+keyUsage = digitalSignature, keyencipherment
+extendedKeyUsage = serverAuth
+
+4.This site is not secure
+-install ca dan sertikat dalam chain ca pada client
+-more information > Go on to the webpage ( not recommended)

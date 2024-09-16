@@ -1,0 +1,28 @@
+• Set Hostname pada Windows Server 2019 Core
+1.Cek hostname default dengan perintah 
+	>hostname
+2.	>netdom renamecomputer hostname-default /newname:FR-FILE /userd:administrator
+3.Reboot server untuk mengaplikasikan perubahan hostname
+	>shutdown /r /t 0
+
+• Set IP Address pada Windows Server 2019 Core dan dns
+1.Cek nama interface yang ada menggunakan 
+	>ipconfig | atau
+	>netsh interface show interface
+2.Gunakan netsh utility untuk mengganti ip address
+	>netsh
+	>interface ip set address name = “interfacenya” static 172.16.1.2 255.255.255.0 172.16.1.254
+	>interface ip set dns “interfacenya” static 172.16.1.1
+ 
+• Allow icmpv4 with command prompt
+1.	>netsh advfirewall firewall add rule name=”ICMP Allow Incoming V4 echo request” protocol=icmpv4:8,any dir=in action=allow
+
+• Permanent Route command in command prompt
+1.	>netsh
+	>int ip add route 192.168.1.0/24 “Ethernet1” 210.103.5.126
+
+• Enable Feature using Command Prompt
+1.	DISM /Online /Enable-Feature /FeatureName:RemoteAccess /All
+2.	Cek and start installed feature
+>sc query “RemoteAccess”
+>sc start “RemoteAccess”

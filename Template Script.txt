@@ -1,0 +1,29 @@
+1.Script membuat file sekaligus direktori dan isinya dengan nama tertentu(Powershell)
+
+1..10 | ForEach-Object {
+    $j = "{0:00}" -f $_
+    New-Item -Path "C:\web\ops$j\default.htm" -ItemType File -Force -Value "<h1> ops$j.itnsa.id </h1><br> This website is managed by ops@itnsa.id"
+}
+
+|=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=|
+
+2.Script membuat forward zone sekaligus reverse dns server (PowerShell)
+
+1..10 | ForEach-Object {
+$j = "{0:00}" -f $_
+Add-DnsServerResourceRecordA -Name "ops$j" -ZoneName itnsa.id -IPv4Address 172.16.99.11 -CreatePtr
+}
+
+|=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=|
+
+3.Script membuat website dengan IIS(PowerShell)
+
+1..10 | ForEach-Object {
+    $j = "{0:00}" -f $_
+New-Website -Name user$j.itnsa.id -PhysicalPath "C:\web\user$j" -IPAddress 172.16.99.11 -Port 80 -HostHeader ops$j.itnsa.id -Force
+Start-Website -Name user$j.itnsa.id
+}
+
+Add-WebConfiguration -Filter system.webserver/defaultdocument/files -PSPath IIS:\Sites\ops$k.itnsa.is -AtIndex 0 -Value (@{value="users.html"})
+
+|=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=||=|=|=|=|=|=|=|=|=|=|

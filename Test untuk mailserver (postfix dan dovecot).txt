@@ -1,0 +1,42 @@
+Test SMTP (Postfix):
+telnet your-mail-server.com 25
+EHLO example.com
+MAIL FROM: your-email@example.com
+RCPT TO: recipient@example.com
+DATA
+Subject: Test Email
+This is a test email.
+.
+
+Test IMAP/POP3 (Dovecot):
+IMAP: telnet your-mail-server.com 143
+POP3: telnet your-mail-server.com 110
+
+IMAP :
+1 a1 login your-username your-password
+2 a2 list "INBOX/" "*"
+3 a3 select "INBOX"
+4 f fetch 1:1  (BODY[HEADER.FIELDS (Subject)])
+5 search unseen
+6
+POP3 :
+USER your-username
+PASS your-password
+LIST
+
+cara buat email group melalui linux :
+#nano /etc/aliases
+*EDIT* | tambahkan di paling bawah
+notification: dev@itnsa.id ops@itnsa.id
+*SAVE* | notification itu nama groupnya
+#newaliases
+
+Send email to group :
+#apt install mailutils -y
+#echo "Test message" | mail -s "Test subject" notification@itnsa.id
+
+Untuk melihat inbox atau pesan yang terkirim(belum dibaca) pada linux terminal
+#cat /home/your-username/Maildir/new/nama-file.hostname
+
+Untuk melihat inbox atau pesan yang terkirim(sudah dibaca) pada linux terminal
+#cat /home/your-username/Maildir/cur/nama-file.hostname

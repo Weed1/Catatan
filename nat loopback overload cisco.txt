@@ -1,0 +1,30 @@
+interface GigabitEthernet0/1
+ip address 24.24.24.210 255.255.255.248 secondary
+ip address 68.68.68.50 255.255.255.240
+ip nat outside
+
+--Internal network
+interface GigabitEthernet0/2.1
+ encapsulation dot1Q 1 native
+ ip address 10.99.99.1 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly in
+
+ip nat inside source route-map RMAP_NAT interface GigabitEthernet0/1 overload
+ip route 0.0.0.0 0.0.0.0 68.68.68.49
+
+route-map RMAP_NAT permit 100
+ match ip address ACL_NAT
+
+ip access-list extended ACL_NAT
+permit ip 10.99.99.0 0.0.0.255 any
+
+ip nat pool wan 24.24.24.210 24.24.24.210 netmask 255.255.255.248
+
+!
+
+ip nat inside source route-map RMAP_NAT pool wan overload
+
+!
+
+ 

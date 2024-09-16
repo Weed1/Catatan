@@ -1,0 +1,9 @@
+1.List feature yang tersedia menggunakan cmd
+>DISM /Online /Get-Features
+
+2.Install service yang diinginkan
+>DISM /Online /Enable-Feature /FeatureName:RemoteAccess /All
+(/All digunakan untuk menginstall parent service yang dibutuhkan agar service dapat berjalan)
+
+tips:
+jika tidak tau apa saja feature yang dibutuhkan service, coba liat list feature melalui cmd pada windows server(GUI) yang belum diinstall servicenya, lalu install service yang diinginkan melalui Server Manager dan liat lagi list feature melalui cmd untuk melihat features yang terinstall ketika menginstall service melalui Server Manager

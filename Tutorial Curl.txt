@@ -1,0 +1,11 @@
+curl -v http://domain.com 
+v = verbose digunakan untuk melihat detail pesan
+
+curl http://domain.com:443
+
+ketika menggunakan https akan muncul notif berikut "curl: (35) error:1408F10B:SSL routines:ssl3_get_record:wrong version number"
+kenapa http dengan nomor port bukan https? karena The https:// is wrong, it should be http://. The proxy itself should be accessed by HTTP and not HTTPS even though the target URL is HTTPS. The proxy will nevertheless properly handle HTTPS connection and keep the end-to-end encryption. See HTTP CONNECT method for details how this is done.
+
+
+curl -k http://domain.com:443
+-k digunakan untuk login secara insecure,biasanya ketika konfigurasi ssl gagal dan ingin melihat isi dari web yang dibuat

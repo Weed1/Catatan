@@ -1,0 +1,7 @@
+
+1. navigate to C:\Windows\System32\Sysprep
+
+2.pada cm jalankan perintah
+>sysprep /generalize /shutdown /oobe
+
+3. ikuti wizard sampai selesai

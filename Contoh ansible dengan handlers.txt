@@ -1,0 +1,37 @@
+struktur ansible
+
+ansible_playbook/main.yml
+├── tasks/
+│   └── tasks.yml
+└── handlers/
+    └── handlers.yml
+
+
+1.tasks.yml
+---
+- name: Enable IP forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    state: present
+  notify:
+    - restart iptables
+
+2.handlers.yml
+---
+- name: restart iptables
+  service:
+    name: iptables
+    state: restarted
+
+3.main.yml
+---
+- hosts: your_servers
+  become: yes
+  tasks:
+    - include_tasks: tasks/tasks.yml
+
+  handlers:
+    - include_tasks: handlers/handlers.yml
+
+
