@@ -20,19 +20,25 @@ browseable = yes
 guest ok = no
 read only = no
 valid users = tes yanur
+#ctrl + x > y
+
+adduser tes (pw "tes")
+adduser yanur (pw "yanur")
 
 cd /srv
 mkdir private public
 
 smbpasswd -a tes
+  456
 smbpasswd -a yanur
+  123
 
 systemctl restart smb
 
 Client access samba:
 apt install samba-client
 smbclient //192.168.10.1/anonymous
-smbclient //192.168.10.1/auth_login
+smbclient //192.168.10.1/auth_login -U tes%456
 
 
 
