@@ -1,11 +1,19 @@
 UPDATE REPOSITORY(Debian)
 #nano /etc/apt/sources.list
 EDIT*>Tambahkan
+#Debian 11
 deb http://deb.debian.org/debian/ bullseye main contrib non-free
 deb-src http://deb.debian.org/debian/ bullseye main contrib non-free
 
 deb http://deb.debian.org/debian/ bullseye-updates main contrib non-free
-deb-src http://deb.debian.org/debian/ bullseye-updates main contrib non-free
+deb-src http://deb.debian.org/debian/ bullseye-updates main contrib non-free|
+
+#Debian 12
+deb http://deb.debian.org/debian/ bookworm main contrib non-free-firmware
+deb-src http://deb.debian.org/debian/ bookworm main contrib non-free-firmware
+
+deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free-firmware
+deb-src http://deb.debian.org/debian/ bookwom-updates main contrib non-free-firmware
 SAVE*
 #apt update
 #apt upgrade
