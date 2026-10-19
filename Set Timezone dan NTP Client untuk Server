@@ -1,0 +1,23 @@
+Set Timezone |
+timedatectl set-timezone Asia/Jakarta
+
+Set NTP CLIENT |
+apt update && apt install -y systemd-timesyncd
+
+mkdir -p /etc/systemd/timesyncd.conf.d
+nano /etc/systemd/timesyncd.conf.d/ntp.conf
+[Time]
+NTP=0.id.pool.ntp.org 1.id.pool.ntp.org 2.id.pool.ntp.org
+FallbackNTP=0.debian.pool.ntp.org 1.debian.pool.ntp.org
+
+timedatectl set-ntp true
+systemctl restart systemd-timesyncd
+timedatectl timesync-status
+
+Command buat cek |
+timedatectl
+
+Yang perlu dilihat:
+System clock synchronized: yes artinya jam sudah sinkron
+NTP service: active artinya service NTP berjalan
+Time zone: Asia/Jakarta (WIB, +0700)
